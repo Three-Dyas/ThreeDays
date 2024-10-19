@@ -28,8 +28,11 @@ public class MailController {
     public ResponseEntity<?> sendMail(@ModelAttribute MailboxDto mailDto) {
         try {
             mailService.sendMail(mailDto);
+
             System.out.println("*** 메일 발송 성공 ***");
             return redirect();
+            System.out.println("*** 메일 발송 및 저장 성공 ***");
+
         } catch (MessagingException e) {
             System.out.println("*** 메일 발송 실패 ***");
             return redirect();
