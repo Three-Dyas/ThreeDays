@@ -2,6 +2,7 @@ package codinggirls.threedays;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -40,4 +41,16 @@ public class Mailbox {
 
     @Column(name = "tag")
     private String tag;
+
+    @Builder
+    public Mailbox(String author, String authorEmail, String receivedEmail, String sendingDate,
+                   String title, String content, String writtenDate) {
+        this.author = author;
+        this.authorEmail = authorEmail;
+        this.receivedEmail = receivedEmail;
+        this.sendingDate = sendingDate;
+        this.title = title;
+        this.content = content;
+        this.writtenDate = writtenDate;
+    }
 }

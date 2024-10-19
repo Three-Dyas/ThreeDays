@@ -9,6 +9,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Service
 @RequiredArgsConstructor
 public class MailService {
@@ -28,8 +31,32 @@ public class MailService {
 
         message.addRecipients(Message.RecipientType.TO, mailDto.getReceivedEmail());
         message.setSubject(mailDto.getTitle());
-        message.setText(mailDto.getContent(), "UTF-8");
+
+        String msg = mailDto.getContent();
+        msg += "<hr>";
+        msg += "본 메일은 <strong>\uD83E\uDD8A코딩걸즈\uD83E\uDD8A</strong>의 메일전송함에서 발송된 메일입니다.";
+        message.setText(msg, "UTF-8", "html");
+
         message.setFrom(mailDto.getAuthor() + " <" + mailDto.getAuthorEmail() + ">");
         mailSender.send(message);
+
+        Mailbox mail = convertDtoToEntity(mailDto);
+        mailRepository.save(mail);
+    }
+
+    private Mailbox convertDtoToEntity(MailboxDto mailDto) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String currentDate = now.format(formatter);
+
+        return Mailbox.builder()
+                .author(mailDto.getAuthor())
+                .authorEmail(mailDto.getAuthorEmail())
+                .receivedEmail(mailDto.getReceivedEmail())
+                .sendingDate(currentDate)
+                .title(mailDto.getTitle())
+                .content(mailDto.getContent())
+                .writtenDate(currentDate)
+                .build();
     }
 }
