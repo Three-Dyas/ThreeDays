@@ -10,6 +10,10 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--pdf 파일 제작-->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 	</head>
 	<body class="is-preload">
@@ -82,6 +86,9 @@
 							<!-- Four -->
 							<section id="three">
 								<div class="container">
+
+									<!--pdf 메일 내용 작성 -->
+									<div id="pdf-contents">
 									<h3>💬 메일 보내기</h3>
 									<p>아래의 폼에 메일의 내용을 작성해주세요 :)</p>
 									<form method="post" action="#">
@@ -93,15 +100,50 @@
 											<div class="col-12">메일 내용<textarea name="message" id="message" placeholder="내용" rows="6"></textarea></div>
 											<div class="col-12">
 												<ul class="actions">
-													<li><input type="submit" class="primary" value="메일 전송" /></li>
-													<li><input type="reset" value="폼 초기화" /></li>
-													<li><a href="파일 경로/파일이름.확장자" download="다운로드시 파일명" role="button"><input type="button" class="primary" value="PDF 다운로드" /></a></li>
+													<div id="sendMail" data-html2canvas-ignore="true"><li><input type="submit" class="primary" value="메일 전송" /></li></div>
+													<div id = "resetBtn" data-html2canvas-ignore="true"><li><input type="reset" value="폼 초기화" /></li></div>
+													<div id = "pdfDownLoad" data-html2canvas-ignore="true">
+													<li><input type="button" class="primary" value="PDF 다운로드" /></li>
+													</div>
 												</ul>
 											</div>
 										</div>
 									</form>
 								</div>
+								</div>
 							</section>
+
+						<script>
+							const  element = document.getElementById("pdf-contents")
+							const options = {
+								margin: [10, 10, 10, 10],
+								filename: '코딩걸즈PDF',
+								pagebreak: { mode: 'avoid-all' },
+								image: { type: 'jpeg', quality: 2 },
+								html2canvas: {
+									logging : true,
+									useCORS: true,
+									scrollY: 0,
+									scale: 1,
+									dpi: 300,
+									letterRendering: false,
+									allowTaint: false,
+								},
+								jsPDF: {
+									orientation: 'landscape',
+									unit: 'mm',
+									format: 'a3'
+								},
+							};
+
+							/*pdfDownLoad*/
+							const  pdfDownLoad = document.getElementById("pdfDownLoad")
+							pdfDownLoad.onclick = () => {
+								html2pdf(element, options);
+							};
+
+							/**/
+						</script>
 
 						<!-- Three -->
 							<section id="four">
