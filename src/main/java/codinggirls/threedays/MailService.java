@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -22,11 +24,11 @@ public class MailService {
     MailRepository mailRepository;
 
     @Async
-    public void sendMail(MailboxDto mailDto) throws MessagingException {
+    public int sendMail(MailboxDto mailDto) throws MessagingException {
         System.out.println("Received Email: " + mailDto.getReceivedEmail());
         System.out.println("Title: " + mailDto.getTitle());
         System.out.println("Content: " + mailDto.getContent());
-
+        int yn = 0;
         MimeMessage message =mailSender.createMimeMessage();
 
         message.addRecipients(Message.RecipientType.TO, mailDto.getReceivedEmail());
@@ -41,7 +43,15 @@ public class MailService {
         mailSender.send(message);
 
         Mailbox mail = convertDtoToEntity(mailDto);
+        System.out.println(mail);
         mailRepository.save(mail);
+
+        if(mailRepository.count()>0) {
+            yn = 1;
+            System.out.println(mail);
+        };
+
+        return yn;
     }
 
     private Mailbox convertDtoToEntity(MailboxDto mailDto) {
@@ -58,5 +68,9 @@ public class MailService {
                 .content(mailDto.getContent())
                 .writtenDate(currentDate)
                 .build();
+    }
+
+    public List<Mailbox> findAllMail(){
+        return mailRepository.findAll();
     }
 }
