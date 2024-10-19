@@ -91,7 +91,7 @@
 									<div id="pdf-contents">
 									<h3>💬 메일 보내기</h3>
 									<p>아래의 폼에 메일의 내용을 작성해주세요 :)</p>
-									<form method="post" action="/mail/send">
+									<form method="post" action="/mail/send" oninput="checkForm()">
 										<div class="row gtr-uniform">
 											<div class="col-6 col-12-xsmall">
 												보내는 사람<input type="text" name="author" id="author" placeholder="이름" />
@@ -113,8 +113,9 @@
 												메일 내용<textarea name="content" id="content" placeholder="내용" rows="6"></textarea>
 											</div>
 											<div class="col-12">
+												<div id="description" style="margin-bottom:5px; display:block; color:#d75858">모든 항목을 입력해주세요!</div>
 												<ul class="actions">
-													<div id="sendMail" data-html2canvas-ignore="true"><li><input type="submit" class="primary" value="메일 전송" /></li></div>
+													<div id="sendMail" data-html2canvas-ignore="true"><li><input id="sendBtn" type="submit" class="primary" value="메일 전송" disabled /></li></div>
 													<div id = "resetBtn" data-html2canvas-ignore="true"><li><input type="reset" value="폼 초기화" /></li></div>
 													<div id = "pdfDownLoad" data-html2canvas-ignore="true">
 													<li><input type="button" class="primary" value="PDF 다운로드" /></li>
@@ -156,7 +157,21 @@
 								html2pdf(element, options);
 							};
 
-							/**/
+							function checkForm() {
+								const author = document.getElementById('author').value;
+								const authorEmail = document.getElementById('authorEmail').value;
+								const receivedEmail = document.getElementById('receivedEmail').value;
+								const sendingDate = document.getElementById('sendingDate').value;
+								const title = document.getElementById('title').value;
+								const content = document.getElementById('content').value;
+
+								const isFormValid = author && authorEmail && receivedEmail && sendingDate && title && content;
+
+								document.getElementById('sendBtn').disabled = !isFormValid;
+								document.getElementById('description').style.display = isFormValid ? "none" : "block";
+							}
+
+
 						</script>
 
 						<!-- Three -->
