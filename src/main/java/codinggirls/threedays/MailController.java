@@ -22,16 +22,13 @@ public class MailController {
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
-
-
     @PostMapping("/mail/send")
     public ResponseEntity<?> sendMail(@ModelAttribute MailboxDto mailDto) {
         try {
             mailService.sendMail(mailDto);
 
-            System.out.println("*** 메일 발송 성공 ***");
-            return redirect();
             System.out.println("*** 메일 발송 및 저장 성공 ***");
+            return redirect();
 
         } catch (MessagingException e) {
             System.out.println("*** 메일 발송 실패 ***");
