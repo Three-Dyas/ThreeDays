@@ -16,7 +16,7 @@ public class MailController {
     public void sendMail(@ModelAttribute MailboxDto mailDto) {
         try {
             mailService.sendMail(mailDto);
-            System.out.println("*** 메일 발송 성공 ***");
+            System.out.println("*** 메일 발송 및 저장 성공 ***");
         } catch (MessagingException e) {
             System.out.println("*** 메일 발송 실패 ***");
         }
