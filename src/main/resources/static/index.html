@@ -91,13 +91,27 @@
 									<div id="pdf-contents">
 									<h3>💬 메일 보내기</h3>
 									<p>아래의 폼에 메일의 내용을 작성해주세요 :)</p>
-									<form method="post" action="#">
+									<form method="post" action="/mail/send">
 										<div class="row gtr-uniform">
-											<div class="col-6 col-12-xsmall">보내는 사람<input type="text" name="name" id="name" placeholder="이름" /></div>
-											<div class="col-6 col-12-xsmall">받는 사람<input type="email" name="email" id="email" placeholder="이메일" /></div>
-											<div class="col-12">보내는 날짜<br><input type="date" name="date" id="date" /></div>
-											<div class="col-12">메일 제목<input type="text" name="subject" id="subject" placeholder="제목" /></div>
-											<div class="col-12">메일 내용<textarea name="message" id="message" placeholder="내용" rows="6"></textarea></div>
+											<div class="col-6 col-12-xsmall">
+												보내는 사람<input type="text" name="author" id="author" placeholder="이름" />
+											</div>
+											<div class="col-6 col-12-xsmall">
+												보내는 사람 이메일<input type="email" name="authorEmail" id="authorEmail" placeholder="이메일" />
+											</div>
+											<div class="col-6 col-12-xsmall">
+												받는 사람 이메일<input type="email" name="receivedEmail" id="receivedEmail" placeholder="받는 이메일" />
+											</div>
+											<div class="col-12">
+												보내는 날짜<br>
+												<input type="date" name="sendingDate" id="sendingDate" />
+											</div>
+											<div class="col-12">
+												메일 제목<input type="text" name="title" id="title" placeholder="제목" />
+											</div>
+											<div class="col-12">
+												메일 내용<textarea name="content" id="content" placeholder="내용" rows="6"></textarea>
+											</div>
 											<div class="col-12">
 												<ul class="actions">
 													<div id="sendMail" data-html2canvas-ignore="true"><li><input type="submit" class="primary" value="메일 전송" /></li></div>
