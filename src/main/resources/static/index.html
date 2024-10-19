@@ -4,7 +4,7 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html lang="">
 	<head>
 		<title>메일전송함 💌</title>
 		<meta charset="utf-8" />
@@ -179,23 +179,40 @@
 								<div class="container">
 									<h3>메일함</h3>
 									<p>보낸메일함입니다.</p>
-									<div class="features">
-										<article>
+									<table class="MailTable">
+										<thead>
+										<tr>
+											<th scope="col">번호</th>
+											<th scope="col">제목</th>
+											<th scope="col">발신자</th>
+											<th scope="col">발신메일</th>
+											<th scope="col">수신메일</th>
+											<th scope="col">내용</th>
+											<th scope="col">작성날짜</th>
+											<th scope="col">태그</th>
+										</tr>
+										</thead>
+										<tbody >
+											<!--/*@thymesVar id="mailboxList" */-->
+											<tr th:if="${not #lists.isEmpty(mailboxList)}" th:each="mailboxList:${mail}">
+												<td th:text="${mail.authorId}"></td>
+												<td th:text="${mail.title}"></td>
+												<td th:text="${mail.author}"></td>
+												<td th:text="${mail.authorId}"></td>
+												<td th:text="${mail.authorEmail}"></td>
+												<td th:text="${mail.receivedEmail}"></td>
+												<td th:text="${mail.content}"></td>
+												<td th:text="${mail.writtenDate}"></td>
+												<td th:text="${mail.tag}"></td>
 
-											<div class="inner">
-												<h4>첫 번째 메일</h4>
-												<p>이메일주소</p>
-											</div>
-										</article>
-										<article>
-
-											<div class="inner">
-												<h4>두 번째 메일</h4>
-												<p>이메일주소</p>
-											</div>
-										</article>
-
-									</div>
+											</tr>
+											<tr th:unless="${not #lists.isEmpty( mailboxList )}">
+												<td colspan="5">
+													<div class="no_data_msg">검색된 결과가 없습니다.</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 							</section>
 
