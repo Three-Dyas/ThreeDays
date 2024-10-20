@@ -9,16 +9,16 @@
 ⏳ 24.10.18일 - 24.10.20일 
 
 ### 🧑‍🤝‍🧑 `멤버구성`
- ⛑️ dabbbin : Front, 메일 조회, 해시태그, PDF 다운로드 
+ ⛑️ dabbbin : Front, 메일 조회, 해시태그, PDF 다운로드 <br>
  ⛑️ chxni : Front, 네이버 메일 전송 
 
 
 ### ⚙️ `개발 환경`
-🔎  ``` Java 17 ```
-🔎 ``` JDK-17.0.10+7 ```
-🔎 **IDE** : IntelliJ IDEA Ultimate 2023.3.6
-🔎 **ORM** : JPA
-🔎 **DB** : MySQL
+ 🔎  ``` Java 17 ```<br>
+ 🔎 ``` JDK-17.0.10+7 ```<br>
+ 🔎 **IDE** : IntelliJ IDEA Ultimate 2023.3.6<br>
+ 🔎 **ORM** : JPA<br>
+ 🔎 **DB** : MySQL
   
 
 ## 📌 주요 기능
