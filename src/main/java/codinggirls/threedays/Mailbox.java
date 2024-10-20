@@ -44,7 +44,7 @@ public class Mailbox {
 
     @Builder
     public Mailbox(String author, String authorEmail, String receivedEmail, String sendingDate,
-                   String title, String content, String writtenDate) {
+                   String title, String content, String writtenDate, String tag) {
         this.author = author;
         this.authorEmail = authorEmail;
         this.receivedEmail = receivedEmail;
@@ -52,5 +52,6 @@ public class Mailbox {
         this.title = title;
         this.content = content;
         this.writtenDate = writtenDate;
+        this.tag = tag;
     }
 }

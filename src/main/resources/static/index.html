@@ -99,10 +99,10 @@
 											<div class="col-6 col-12-xsmall">
 												보내는 사람 이메일<input type="email" name="authorEmail" id="authorEmail" placeholder="이메일" />
 											</div>
-											<div class="col-6 col-12-xsmall">
+											<div class="col-12-xsmall">
 												받는 사람 이메일<input type="email" name="receivedEmail" id="receivedEmail" placeholder="받는 이메일" />
 											</div>
-											<div class="col-12">
+											<div class="col-7 col-12">
 												보내는 날짜<br>
 												<input type="date" name="sendingDate" id="sendingDate" />
 											</div>
@@ -112,8 +112,57 @@
 											<div class="col-12">
 												메일 내용<textarea name="content" id="content" placeholder="내용" rows="6"></textarea>
 											</div>
+											<div class="col-12-xsmall">
+												태그<br>
+												<label for="tag"><input type="text" name="tag" id="tag" placeholder="엔터로 태그 추가하기" /></label>
+												<div id="tag-container"></div>
+												<input type="hidden" id="hiddenTag">
+											</div>
+
+											<script>
+												let tagInput = document.getElementById("tag");
+												const tagContainer = document.getElementById("tag-container");
+												const hiddenTag = document.getElementById("hiddenTag");
+
+												let tags = []
+
+												function addHashtag(hashtag) {
+													hashtag = hashtag.replace(/[\[\]]/g, '').trim();
+													if(hashtag && !tags.includes(hashtag)) {
+														const span = document.createElement("span");
+														span.innerText = "#" + hashtag + " ";
+														span.classList.add("tag");
+
+														const removeButton = document.createElement("button");
+														removeButton.innerText = "x";
+														removeButton.classList.add("remove-button");
+														removeButton.addEventListener("click", () => {
+															tagContainer.removeChild(span);
+															tag = tags.filter((hashtag) => tag !== hashtag);
+															hiddenTag.value = tags.join(",");
+														});
+
+														span.appendChild(removeButton);
+														tagContainer.appendChild(span);
+														tags.push(hashtag);
+														hiddenTag.value = tags.join(",");
+													}
+												}
+
+												tagInput.addEventListener("keydown", (event) => {
+													if (event.key === 'Enter') {
+														event.preventDefault();
+														const tag = tagInput.value.trim();
+														if (tag) {
+															addHashtag(tag);
+															tagInput.value = "";
+														}
+													}
+												});
+											</script>
+
 											<div class="col-12">
-												<div id="description" style="margin-bottom:5px; display:block; color:#d75858">모든 항목을 입력해주세요!</div>
+												<div id="description" style="margin-bottom:5px; display:block; color:#d75858">필수 항목을 입력해주세요!</div>
 												<ul class="actions">
 													<div id="sendMail" data-html2canvas-ignore="true"><li><input id="sendBtn" type="submit" class="primary" value="메일 전송" disabled /></li></div>
 													<div id = "resetBtn" data-html2canvas-ignore="true"><li><input type="reset" value="폼 초기화" /></li></div>

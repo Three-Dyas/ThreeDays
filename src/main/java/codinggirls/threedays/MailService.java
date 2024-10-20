@@ -43,7 +43,10 @@ public class MailService {
         mailSender.send(message);
 
         Mailbox mail = convertDtoToEntity(mailDto);
-        System.out.println(mail);
+
+
+
+        System.out.println("태그" + mail.getTag());
         mailRepository.save(mail);
 
         if(mailRepository.count()>0) {
@@ -67,10 +70,13 @@ public class MailService {
                 .title(mailDto.getTitle())
                 .content(mailDto.getContent())
                 .writtenDate(currentDate)
+                .tag(mailDto.getTag())
                 .build();
     }
 
     public List<Mailbox> findAllMail(){
         return mailRepository.findAll();
     }
+
+
 }
