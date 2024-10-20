@@ -1,12 +1,10 @@
 package codinggirls.threedays;
 
 import jakarta.mail.MessagingException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -35,9 +33,6 @@ public class MailController {
         return mail(yn);
     }
 
-
-
-
     public ResponseEntity<?> mail(int yn) {
         if(yn == 1) {
 
@@ -52,20 +47,8 @@ public class MailController {
 
     }
 
-    //전송함 리스트 출력
-
     @GetMapping("/list")
-    @ResponseBody
-    public ResponseEntity<List<Mailbox>> findAllMaillist(Model model) {
-        List<Mailbox> mailboxList = mailService
-                .findAllMail()
-                .stream()
-//                .map(MailboxDto::new)
-                .toList();
-
-        System.out.println("메일리스트입니다," + mailboxList);
-        model.addAttribute("mailboxList", mailboxList);
-
-        return ResponseEntity.ok().body(mailboxList);
+    public List<Mailbox> getMailList() {
+        return mailService.findAllMail();
     }
 }

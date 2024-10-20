@@ -9,11 +9,11 @@
 		<title>메일전송함 💌</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
 		<!--pdf 파일 제작-->
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	</head>
 	<body class="is-preload">
@@ -21,7 +21,7 @@
 		<!-- Header -->
 			<section id="header">
 				<header>
-					<span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
+					<span class="image avatar"><img src="/images/avatar.jpg" alt="" /></span>
 					<h1 id="logo"><a href="#">🦊코딩걸즈🦊</a></h1>
 					<p>뽀짝한 우리의 작품입니다!<br />
 					메일을 전송해보세용</p>
@@ -55,7 +55,7 @@
 						<!-- One -->
 							<section id="one">
 								<div class="image main" data-position="center">
-									<img src="images/banner.jpg" alt="" />
+									<img src="/images/banner.jpg" alt="" />
 								</div>
 								<div class="container">
 									<header class="major">
@@ -192,30 +192,44 @@
 											<th scope="col">태그</th>
 										</tr>
 										</thead>
-										<tbody >
-											<!--/*@thymesVar id="mailboxList" */-->
-											<tr th:if="${not #lists.isEmpty(mailboxList)}" th:each="mailboxList:${mail}">
-												<td th:text="${mail.authorId}"></td>
-												<td th:text="${mail.title}"></td>
-												<td th:text="${mail.author}"></td>
-												<td th:text="${mail.authorId}"></td>
-												<td th:text="${mail.authorEmail}"></td>
-												<td th:text="${mail.receivedEmail}"></td>
-												<td th:text="${mail.content}"></td>
-												<td th:text="${mail.writtenDate}"></td>
-												<td th:text="${mail.tag}"></td>
-
-											</tr>
-											<tr th:unless="${not #lists.isEmpty( mailboxList )}">
-												<td colspan="5">
-													<div class="no_data_msg">검색된 결과가 없습니다.</div>
-												</td>
-											</tr>
+										<tbody id="mailListBody">
 										</tbody>
 									</table>
+									<div id="noDataMessage" style="display: none;">검색된 결과가 없습니다.</div>
 								</div>
 							</section>
 
+						<script>
+							$(document).ready(function() {
+								$.ajax({
+									url: "/list",
+									method: "GET",
+									success: function(response) {
+										if (response.length > 0) {
+											let rows = '';
+											response.forEach(function(mail, index) {
+												rows += `<tr>
+                                <td>${index + 1}</td>
+                                <td>${mail.title}</td>
+                                <td>${mail.author}</td>
+                                <td>${mail.authorEmail}</td>
+                                <td>${mail.receivedEmail}</td>
+                                <td>${mail.content}</td>
+                                <td>${mail.writtenDate}</td>
+                                <td>${mail.tag}</td>
+                             </tr>`;
+											});
+											$('#mailListBody').html(rows);
+										} else {
+											$('#noDataMessage').show();
+										}
+									},
+									error: function(error) {
+										console.log("에러", error);
+									}
+								})
+							})
+						</script>
 
 
 						<!-- Five -->
@@ -564,13 +578,13 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 		<!-- Scripts -->
 
-			<script src="./assets/js/jquery.min.js"></script>
-			<script src="./assets/js/jquery.scrollex.min.js"></script>
-			<script src="./assets/js/jquery.scrolly.min.js"></script>
-			<script src="./assets/js/browser.min.js"></script>
-			<script src="./assets/js/breakpoints.min.js"></script>
-			<script src="./assets/js/util.js"></script>
-			<script src="./assets/js/main.js"></script>
+			<script src="/assets/js/jquery.min.js"></script>
+			<script src="/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/assets/js/browser.min.js"></script>
+			<script src="/assets/js/breakpoints.min.js"></script>
+			<script src="/assets/js/util.js"></script>
+			<script src="/assets/js/main.js"></script>
 
 
 	</body>
